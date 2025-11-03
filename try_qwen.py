@@ -28,8 +28,10 @@ SUMMARY_FILE = "daily_summary.csv"
 
 # ========= 初始化 TradingAgents =========
 config = DEFAULT_CONFIG.copy()
-config["deep_think_llm"] = "Qwen3-Coder-480B-A35B-Instruct-FP8"
-config["quick_think_llm"] = "Qwen3-Coder-480B-A35B-Instruct-FP8"
+# config["deep_think_llm"] = "Qwen3-Coder-480B-A35B-Instruct-FP8"
+# config["quick_think_llm"] = "Qwen3-Coder-480B-A35B-Instruct-FP8"
+config["deep_think_llm"] = "Qwen3-Coder-30B-A3B-Instruct-FP8"
+config["quick_think_llm"] = "Qwen3-Coder-30B-A3B-Instruct-FP8"
 config["backend_url"] = PROXY_BASE
 config["max_debate_rounds"] = 1
 config["data_vendors"] = {
@@ -63,7 +65,7 @@ else:
 
 # ========= 获取今日日期 =========
 # today = str(date.today() - timedelta(days=1))
-today = date(2025, 10, 30).strftime("%Y-%m-%d")
+today = date(2025, 11, 3).strftime("%Y-%m-%d")
 records = []
 
 # ========= 遍历每只股票 =========

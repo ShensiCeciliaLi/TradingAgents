@@ -1,18 +1,33 @@
 import chromadb
 from chromadb.config import Settings
 from openai import OpenAI
+import os
 
 
 class FinancialSituationMemory:
     def __init__(self, name, config):
+        '''
         # if config["backend_url"] == "http://localhost:11434/v1":
             # self.embedding = "nomic-embed-text"
         # else:
             # self.embedding = "text-embedding-3-small"
-        # self.embedding = "Qwen/Qwen3-Embedding-4B"
-        self.embedding = "/mnt/raid/models/Qwen3-Embedding-4B"
+        self.embedding = "Qwen/Qwen3-Embedding-4B"
+        # self.embedding = "/mnt/raid/models/Qwen3-Embedding-4B"
         # Embedding 强制使用本地服务
         self.client = OpenAI(base_url="http://localhost:8000/v1")
+        self.chroma_client = chromadb.Client(Settings(allow_reset=True))
+        self.situation_collection = self.chroma_client.create_collection(name=name)
+        '''
+        self.embedding = "Qwen3-Embedding-8B"  
+        # 使用环境变量中的API配置
+        embedding_key = os.getenv("OPENAI_API_KEY_E")  
+        embedding_base = os.getenv("BASE_URL_E")  
+        # 初始化OpenAI客户端，使用代理配置
+        self.client = OpenAI(
+            api_key=embedding_key,
+            base_url=embedding_base
+        )
+    
         self.chroma_client = chromadb.Client(Settings(allow_reset=True))
         self.situation_collection = self.chroma_client.create_collection(name=name)
 
